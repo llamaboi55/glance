@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Glance calibration</title>
+  <link rel="stylesheet" href="css/calibrate.css">
+</head>
+<body>
+  <main>
+    <p class="step" id="step">Screen 1 of 2</p>
+    <button class="target" id="target" aria-label="Capture this screen">
+      <svg viewBox="0 0 120 120" aria-hidden="true">
+        <circle class="track" cx="60" cy="60" r="52"/>
+        <circle class="ring" id="ring" cx="60" cy="60" r="52" pathLength="100"/>
+        <circle class="core" cx="60" cy="60" r="14"/>
+      </svg>
+    </button>
+    <h1 id="title">Look at the dot</h1>
+    <p class="hint" id="hint">Sit how you normally do, face this screen and press <kbd>Space</kbd>. Hold still for a moment.</p>
+    <p class="error" id="error" hidden></p>
+  </main>
+  <p class="cancel"><kbd>Esc</kbd> cancels</p>
+  <script type="module" src="js/calibrate.js"></script>
+</body>
+</html>

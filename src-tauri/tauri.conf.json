@@ -1,0 +1,37 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Glance",
+  "version": "1.0.0",
+  "identifier": "io.github.llamaboi55.glance",
+  "build": {
+    "frontendDist": "../src"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "macOSPrivateApi": true,
+    "windows": [],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob: mediastream:; connect-src 'self' ipc: http://ipc.localhost"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "category": "Productivity",
+    "shortDescription": "Keyboard focus follows the screen you're looking at.",
+    "longDescription": "Glance uses your webcam to see which monitor you're facing and moves keyboard focus there, so you can type without clicking first. Face tracking runs entirely on your computer and no image ever leaves it. Free and open source, on Windows, macOS and Linux.",
+    "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.icns", "icons/icon.ico"],
+    "macOS": {
+      "minimumSystemVersion": "11.0",
+      "signingIdentity": "-"
+    },
+    "windows": {
+      "nsis": { "installMode": "currentUser" }
+    },
+    "linux": {
+      "deb": { "depends": ["gstreamer1.0-plugins-good"] },
+      "rpm": { "depends": ["gstreamer1-plugins-good"] }
+    }
+  },
+  "plugins": {}
+}

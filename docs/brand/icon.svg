@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3b8bff"/>
+      <stop offset="1" stop-color="#1b3fa8"/>
+    </linearGradient>
+    <radialGradient id="iris" cx="0.4" cy="0.4" r="0.7">
+      <stop offset="0" stop-color="#7fe0ff"/>
+      <stop offset="1" stop-color="#1f7ae0"/>
+    </radialGradient>
+    <clipPath id="eye"><path d="M190 360 Q512 120 834 360 Q512 600 190 360 Z"/></clipPath>
+  </defs>
+  <rect x="48" y="48" width="928" height="928" rx="208" fill="url(#bg)"/>
+  <!-- two screens, the right one lit -->
+  <rect x="150" y="610" width="330" height="220" rx="28" fill="none" stroke="#ffffff" stroke-opacity="0.45" stroke-width="30"/>
+  <rect x="544" y="610" width="330" height="220" rx="28" fill="#ffffff" stroke="#ffffff" stroke-width="30"/>
+  <rect x="590" y="666" width="150" height="22" rx="11" fill="#1b3fa8" opacity="0.55"/>
+  <rect x="590" y="718" width="220" height="22" rx="11" fill="#1b3fa8" opacity="0.35"/>
+  <!-- the eye, looking right -->
+  <path d="M190 360 Q512 120 834 360 Q512 600 190 360 Z" fill="#ffffff"/>
+  <g clip-path="url(#eye)">
+    <circle cx="590" cy="360" r="112" fill="url(#iris)"/>
+    <circle cx="606" cy="360" r="54" fill="#0b1a3d"/>
+    <circle cx="574" cy="326" r="20" fill="#ffffff" opacity="0.9"/>
+  </g>
+</svg>

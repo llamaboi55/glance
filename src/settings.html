@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Glance</title>
+  <link rel="stylesheet" href="css/settings.css">
+</head>
+<body>
+  <header>
+    <img src="icon.png" alt="" width="40" height="40">
+    <div class="brand">
+      <h1>Glance</h1>
+      <p>Keyboard focus follows the screen you're looking at.</p>
+    </div>
+    <span class="chip" id="chip" data-status="starting">Starting</span>
+    <label class="switch big" title="Alt Shift G">
+      <input type="checkbox" id="enabled" checked>
+      <span></span>
+    </label>
+  </header>
+
+  <div class="banner" id="banner" hidden>
+    <p id="banner-text"></p>
+    <button id="retry">Try again</button>
+  </div>
+
+  <section class="card">
+    <div class="card-head">
+      <div>
+        <h2>Your screens</h2>
+        <p class="muted" id="screens-note">The highlighted screen is the one you're facing. The keyboard shows where typing goes.</p>
+      </div>
+      <button class="primary" id="calibrate">Calibrate</button>
+    </div>
+    <div class="layout">
+      <div class="map" id="map"></div>
+      <div class="pad" id="pad" title="Where your head is pointing">
+        <span class="pad-label">Head direction</span>
+        <div class="crosshair"></div>
+        <div id="pad-centers"></div>
+        <i class="you" id="you" hidden></i>
+      </div>
+    </div>
+    <p class="warning" id="warning" hidden></p>
+  </section>
+
+  <section class="card">
+    <h2>Options</h2>
+    <div class="row">
+      <div><b>Switch after</b><small>How long you face a screen before focus moves there.</small></div>
+      <div class="range"><input type="range" id="dwell" min="150" max="1200" step="50"><output id="dwell-out"></output></div>
+    </div>
+    <div class="row">
+      <div><b>Wait for typing to stop</b><small>Focus never moves mid-sentence. It waits this long after your last key or click.</small></div>
+      <div class="range"><input type="range" id="typingDelay" min="300" max="2500" step="100"><output id="typingDelay-out"></output></div>
+    </div>
+    <label class="row">
+      <div><b>Bring the mouse along</b><small>Also jump the pointer to the middle of the screen you switch to.</small></div>
+      <span class="switch"><input type="checkbox" id="movePointer"><span></span></span>
+    </label>
+    <label class="row">
+      <div><b>Show the indicator</b><small>The little pill in the corner that shows which screen is active.</small></div>
+      <span class="switch"><input type="checkbox" id="showPill"><span></span></span>
+    </label>
+    <label class="row">
+      <div><b>Start with my computer</b><small>Glance opens quietly in the background when you sign in.</small></div>
+      <span class="switch"><input type="checkbox" id="autostart"><span></span></span>
+    </label>
+  </section>
+
+  <footer>
+    <p>🔒 Video is read on this computer and thrown away frame by frame. Nothing is recorded or sent anywhere.</p>
+    <p><kbd>Alt</kbd> <kbd>Shift</kbd> <kbd>G</kbd> pauses and resumes from anywhere. <button class="link" id="quit">Quit Glance</button></p>
+  </footer>
+  <script type="module" src="js/settings.js"></script>
+</body>
+</html>
