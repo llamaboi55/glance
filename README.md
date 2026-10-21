@@ -105,6 +105,11 @@ npm test             # head-pose and switching tests (node --test) and Rust test
 
 Releases are built for all three systems by GitHub Actions whenever the version in `src-tauri/tauri.conf.json` changes on `main`.
 
+## Where the idea came from
+
+Found through this Instagram Reel: https://www.instagram.com/p/DeSJvzUyrd_/
+This project isn't affiliated with the app shown there.
+
 ## License
 
 MIT. Third-party parts are listed in [THIRD_PARTY.md](THIRD_PARTY.md). Glance is an independent project and isn't affiliated with any other app.
