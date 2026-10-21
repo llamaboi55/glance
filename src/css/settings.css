@@ -1,25 +1,19 @@
 :root {
-[hidden] { display: none !important; }
-  color-scheme: light dark;
-  --bg: #f4f6fa; --card: #fff; --text: #171a21; --muted: #667085; --line: #e3e7ee;
-  --accent: #2f7dff; --accent-soft: rgba(47, 125, 255, 0.12); --ok: #12b76a; --warn: #f5a524; --bad: #e5484d;
-  --screen: #eef1f6; --screen-line: #cfd6e2;
+  --accent: #5aa9ff; --accent-ink: #06121f;
+  --bg: var(--ui-bg); --card: var(--ui-panel); --text: var(--ui-text); --muted: var(--ui-dim); --line: var(--ui-line);
+  --accent-soft: color-mix(in srgb, var(--accent) 15%, transparent); --ok: #3ddc97; --warn: #f5b14c; --bad: #ff6b72;
+  --screen: var(--ui-panel-2); --screen-line: var(--ui-line-2);
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0f1116; --card: #171a21; --text: #eef1f6; --muted: #98a1b3; --line: #262b36;
-    --accent: #5aa9ff; --accent-soft: rgba(90, 169, 255, 0.16); --screen: #1e232d; --screen-line: #333a48;
-  }
-}
+@media (prefers-color-scheme: light) { :root.ui-auto { --accent: #2f7dff; --accent-ink: #fff; --ok: #12a764; --warn: #d48a0c; --bad: #e5484d; } }
 * { box-sizing: border-box; }
-html, body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.45 system-ui, -apple-system, 'Segoe UI', Ubuntu, sans-serif; }
-body { padding: 20px 22px 18px; max-width: 900px; margin: 0 auto; }
-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
-header img { border-radius: 10px; }
+html, body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.45 var(--ui-font); }
+body { padding: 0 24px 22px; max-width: 900px; margin: 0 auto; }
+header { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 14px; margin: 0 -24px 18px; padding: 16px 24px; border-bottom: 1px solid var(--ui-line); background: color-mix(in srgb, var(--ui-bg) 84%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+header img { border-radius: 10px; box-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.6); }
 .brand { flex: 1; min-width: 0; }
-h1 { margin: 0; font-size: 20px; }
+h1 { margin: 0; font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
 .brand p { margin: 0; color: var(--muted); }
-h2 { margin: 0 0 2px; font-size: 15px; }
+h2 { margin: 0 0 2px; font-size: 14px; font-weight: 650; letter-spacing: -0.005em; }
 .muted, small { color: var(--muted); }
 .chip { padding: 4px 11px; border-radius: 999px; background: var(--screen); color: var(--muted); font-weight: 600; font-size: 12.5px; white-space: nowrap; }
 .chip[data-status='tracking'] { background: rgba(18, 183, 106, 0.14); color: var(--ok); }
@@ -27,11 +21,13 @@ h2 { margin: 0 0 2px; font-size: 15px; }
 .chip[data-status='nocamera'] { background: rgba(229, 72, 77, 0.14); color: var(--bad); }
 .chip[data-status='uncalibrated'], .chip[data-status='calibrating'] { background: var(--accent-soft); color: var(--accent); }
 
-.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; margin-bottom: 14px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--ui-radius); padding: 18px 20px; margin-bottom: 16px; box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 14px 32px -22px rgba(0, 0, 0, 0.85); animation: ui-in 0.45s var(--ui-ease) both; }
+.card:nth-of-type(2) { animation-delay: 40ms; } .card:nth-of-type(3) { animation-delay: 80ms; } .card:nth-of-type(n+4) { animation-delay: 120ms; }
 .card-head { display: flex; gap: 16px; align-items: flex-start; justify-content: space-between; margin-bottom: 12px; }
-button { font: inherit; font-weight: 600; padding: 8px 14px; border-radius: 9px; border: 1px solid var(--line); background: var(--card); color: var(--text); cursor: pointer; white-space: nowrap; }
-button:hover { border-color: var(--accent); }
-button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+button { font: inherit; font-weight: 600; padding: 7px 14px; border-radius: 10px; border: 1px solid var(--ui-line-2); background: var(--ui-panel-2); color: var(--text); cursor: pointer; white-space: nowrap; transition: border-color 0.15s, background 0.15s, transform 0.12s; }
+button:hover { border-color: color-mix(in srgb, var(--accent) 60%, transparent); }
+button:active { transform: scale(0.98); }
+button.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); box-shadow: 0 8px 20px -12px var(--accent); }
 button:disabled { opacity: 0.5; cursor: default; }
 button.link { padding: 0; border: 0; background: none; color: var(--muted); text-decoration: underline; font-weight: 400; }
 
@@ -62,14 +58,15 @@ button.link { padding: 0; border: 0; background: none; color: var(--muted); text
 .row > div:first-child { display: flex; flex-direction: column; }
 label.row { cursor: pointer; }
 .range { display: flex; align-items: center; gap: 10px; flex: none; }
-.range input { width: 170px; accent-color: var(--accent); }
+.range input { width: 190px; }
 .range output { width: 52px; text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); }
 
 .switch { position: relative; display: inline-block; width: 40px; height: 23px; flex: none; }
 .switch.big { width: 46px; height: 26px; }
-.switch input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
-.switch span { position: absolute; inset: 0; border-radius: 999px; background: var(--screen-line); transition: background 0.15s; pointer-events: none; }
-.switch span::after { content: ''; position: absolute; top: 3px; left: 3px; width: calc(100% - 23px); aspect-ratio: 1; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25); transition: transform 0.15s; }
+.switch input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; width: 100%; height: 100%; }
+.switch input::after { display: none; }
+.switch span { position: absolute; inset: 0; border-radius: 999px; background: var(--screen-line); transition: background 0.25s var(--ui-ease); pointer-events: none; }
+.switch span::after { content: ''; position: absolute; top: 3px; left: 3px; width: calc(100% - 23px); aspect-ratio: 1; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35); transition: transform 0.25s var(--ui-ease); }
 .switch.big span::after { width: 20px; }
 .switch:not(.big) span::after { width: 17px; }
 .switch input:checked + span { background: var(--accent); }

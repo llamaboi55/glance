@@ -1,0 +1,146 @@
+/* Chipper UI: the shared look for every Chipper app's windows.
+   Low-specificity (:where) base styles for form controls, so each app's own CSS
+   still wins. Each app sets --accent (and optionally --accent-ink for text on it). */
+:root {
+  --ui-bg: #0d0e12;
+  --ui-panel: #14161c;
+  --ui-panel-2: #1a1d24;
+  --ui-line: rgba(255, 255, 255, 0.075);
+  --ui-line-2: rgba(255, 255, 255, 0.13);
+  --ui-text: #eceef3;
+  --ui-dim: #8b91a1;
+  --ui-faint: #5f6575;
+  --accent: #6c8cff;
+  --accent-ink: #0b0d12;
+  --ui-radius: 14px;
+  --ui-ease: cubic-bezier(.2, .8, .2, 1);
+  --ui-font: Inter, 'Segoe UI Variable Text', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Ubuntu, Cantarell, sans-serif;
+  --ui-mono: 'JetBrains Mono', 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace;
+}
+/* Apps that follow the system theme put class="ui-auto" on <html>. */
+@media (prefers-color-scheme: light) {
+  :root.ui-auto {
+    --ui-bg: #f4f5f8; --ui-panel: #ffffff; --ui-panel-2: #f6f7fa; --ui-line: rgba(16, 22, 38, 0.08); --ui-line-2: rgba(16, 22, 38, 0.15);
+    --ui-text: #171a23; --ui-dim: #646c80; --ui-faint: #9aa1b2; color-scheme: light;
+  }
+  :root.ui-auto .ui-card, :root.ui-auto .ui-section { box-shadow: 0 1px 2px rgba(16, 22, 38, 0.04), 0 12px 30px -22px rgba(16, 22, 38, 0.3); }
+}
+:root { color-scheme: dark; }
+[hidden] { display: none !important; }
+
+:where(body) { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+:where(button, input, select, textarea) { font: inherit; color: inherit; }
+:where(button) { cursor: pointer; }
+
+/* Switches: every checkbox becomes a smooth toggle. */
+:where(input[type=checkbox]) {
+  appearance: none; -webkit-appearance: none; flex: none; margin: 0; cursor: pointer;
+  width: 36px; height: 21px; border-radius: 999px; position: relative; vertical-align: middle;
+  background: var(--ui-line-2); transition: background 0.25s var(--ui-ease), box-shadow 0.2s;
+}
+:where(input[type=checkbox])::after {
+  content: ''; position: absolute; top: 2px; left: 2px; width: 17px; height: 17px; border-radius: 50%;
+  background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35); transition: transform 0.25s var(--ui-ease);
+}
+:where(input[type=checkbox]:checked) { background: var(--accent); }
+:where(input[type=checkbox]:checked)::after { transform: translateX(15px); }
+:where(input[type=checkbox]:disabled) { opacity: 0.4; cursor: default; }
+
+/* Sliders: a thin track that fills with the accent and a soft round thumb. */
+:where(input[type=range]) {
+  appearance: none; -webkit-appearance: none; background: transparent; height: 22px; margin: 0; cursor: pointer;
+  --fill: 50%;
+}
+:where(input[type=range])::-webkit-slider-runnable-track {
+  height: 4px; border-radius: 4px;
+  background: linear-gradient(to right, var(--accent) var(--fill), var(--ui-line-2) var(--fill));
+}
+:where(input[type=range])::-moz-range-track { height: 4px; border-radius: 4px; background: var(--ui-line-2); }
+:where(input[type=range])::-moz-range-progress { height: 4px; border-radius: 4px; background: var(--accent); }
+:where(input[type=range])::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 16px; height: 16px; margin-top: -6px; border-radius: 50%;
+  background: #fff; border: 0; box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 0%, transparent), 0 1px 4px rgba(0, 0, 0, 0.45);
+  transition: box-shadow 0.2s, transform 0.15s var(--ui-ease);
+}
+:where(input[type=range])::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: #fff; border: 0; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.45); }
+:where(input[type=range]:hover)::-webkit-slider-thumb { box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 22%, transparent), 0 1px 4px rgba(0, 0, 0, 0.45); }
+:where(input[type=range]:active)::-webkit-slider-thumb { transform: scale(1.1); }
+
+/* Text, number and select fields. */
+:where(input[type=text], input[type=number], input[type=search], input[type=time], input:not([type]), select, textarea) {
+  background: var(--ui-panel-2); border: 1px solid var(--ui-line-2); border-radius: 9px; padding: 7px 10px; outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+:where(input[type=text], input[type=number], input[type=search], input[type=time], input:not([type]), select, textarea):focus {
+  border-color: color-mix(in srgb, var(--accent) 70%, transparent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+:where(input[type=number]) { -moz-appearance: textfield; font-variant-numeric: tabular-nums; }
+:where(input[type=number])::-webkit-inner-spin-button, :where(input[type=number])::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+:where(select) {
+  appearance: none; -webkit-appearance: none; padding-right: 28px; cursor: pointer;
+  background-image: linear-gradient(45deg, transparent 50%, var(--ui-dim) 50%), linear-gradient(135deg, var(--ui-dim) 50%, transparent 50%);
+  background-position: calc(100% - 15px) 52%, calc(100% - 10px) 52%; background-size: 5px 5px; background-repeat: no-repeat;
+}
+:where(input::placeholder, textarea::placeholder) { color: var(--ui-faint); }
+
+/* Focus rings only for keyboard users. */
+:where(:focus) { outline: none; }
+:where(:focus-visible) { outline: 2px solid color-mix(in srgb, var(--accent) 80%, transparent); outline-offset: 2px; }
+
+/* Scrollbars that stay out of the way. */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--ui-line-2); border-radius: 10px; border: 3px solid transparent; background-clip: padding-box; }
+::-webkit-scrollbar-thumb:hover { background-color: rgba(255, 255, 255, 0.2); }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* Shared building blocks, used by apps that opt in. */
+.ui-card { background: var(--ui-panel); border: 1px solid var(--ui-line); border-radius: var(--ui-radius); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 14px 32px -22px rgba(0, 0, 0, 0.85); }
+.ui-btn { border: 1px solid var(--ui-line-2); background: var(--ui-panel-2); border-radius: 10px; padding: 7px 14px; font-weight: 600; transition: border-color 0.15s, background 0.15s, transform 0.12s; }
+.ui-btn:hover { border-color: rgba(255, 255, 255, 0.25); }
+.ui-btn:active { transform: scale(0.98); }
+.ui-btn.primary { background: var(--accent); color: var(--accent-ink); border-color: transparent; box-shadow: 0 8px 20px -12px var(--accent); }
+.ui-btn.primary:hover { filter: brightness(1.07); }
+
+/* Settings page layout: header, a column of cards, rows of label + control. */
+body.ui { margin: 0; background: var(--ui-bg); color: var(--ui-text); font: 14px/1.45 var(--ui-font); }
+.ui-header { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 14px; padding: 16px 28px; border-bottom: 1px solid var(--ui-line); background: color-mix(in srgb, var(--ui-bg) 84%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.ui-header img { width: 40px; height: 40px; border-radius: 10px; box-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.6); }
+.ui-header h1 { margin: 0; font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
+.ui-header p { margin: 1px 0 0; color: var(--ui-dim); font-size: 13px; }
+.ui-header .end { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+.ui-page { max-width: 880px; margin: 0 auto; padding: 22px 28px 28px; display: flex; flex-direction: column; gap: 16px; }
+.ui-section { background: var(--ui-panel); border: 1px solid var(--ui-line); border-radius: var(--ui-radius); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 14px 32px -22px rgba(0, 0, 0, 0.85); padding: 18px 20px; animation: ui-in 0.45s var(--ui-ease) both; }
+.ui-section:nth-child(2) { animation-delay: 40ms; } .ui-section:nth-child(3) { animation-delay: 80ms; } .ui-section:nth-child(n+4) { animation-delay: 120ms; }
+.ui-section > h2 { margin: 0; font-size: 14px; font-weight: 650; letter-spacing: -0.005em; display: flex; align-items: center; gap: 10px; }
+.ui-section > h2 .end { margin-left: auto; }
+.ui-section > .desc { margin: 3px 0 12px; color: var(--ui-dim); font-size: 13px; }
+.ui-section > h2 + .ui-row { margin-top: 6px; }
+.ui-row { display: flex; align-items: center; gap: 16px; padding: 12px 0; }
+.ui-row + .ui-row { border-top: 1px solid var(--ui-line); }
+.ui-row > .label { flex: 1; min-width: 0; }
+.ui-row > .label b { display: block; font-weight: 600; }
+.ui-row > .label small { display: block; margin-top: 1px; color: var(--ui-dim); font-size: 12.5px; }
+.ui-row input[type=range] { width: min(240px, 40vw); }
+.ui-row output { min-width: 52px; text-align: right; color: var(--ui-dim); font-variant-numeric: tabular-nums; font-size: 13px; }
+.ui-row input[type=text] { width: min(280px, 45vw); }
+.ui-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 2px 4px 0; color: var(--ui-faint); font-size: 12.5px; }
+.ui-link { border: 0; background: none; padding: 0; color: var(--ui-dim); text-decoration: underline; text-decoration-color: var(--ui-line-2); text-underline-offset: 3px; }
+.ui-link:hover { color: var(--ui-text); text-decoration-color: currentColor; }
+kbd { font: 11.5px/1.4 var(--ui-mono); padding: 1px 6px; border: 1px solid var(--ui-line-2); border-bottom-width: 2px; border-radius: 6px; background: var(--ui-panel-2); color: var(--ui-dim); }
+.ui-seg { display: inline-flex; padding: 3px; gap: 2px; background: var(--ui-panel-2); border: 1px solid var(--ui-line); border-radius: 10px; }
+.ui-seg button { border: 0; background: none; padding: 5px 12px; border-radius: 7px; color: var(--ui-dim); font-weight: 600; font-size: 13px; transition: background 0.2s, color 0.2s; }
+.ui-seg button:hover { color: var(--ui-text); }
+.ui-seg button.on, .ui-seg button[aria-checked=true], .ui-seg button[aria-pressed=true] { background: var(--ui-panel); color: var(--ui-text); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 0 0 1px var(--ui-line); }
+.ui-tile { border: 1px solid var(--ui-line); background: var(--ui-panel-2); border-radius: 12px; transition: border-color 0.2s, box-shadow 0.25s var(--ui-ease), transform 0.2s var(--ui-ease), background 0.2s; }
+.ui-tile:hover { border-color: var(--ui-line-2); transform: translateY(-1px); }
+.ui-tile.on, .ui-tile[aria-checked=true] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 10px 26px -14px var(--accent); background: color-mix(in srgb, var(--accent) 8%, var(--ui-panel-2)); }
+.ui-badge { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; background: var(--ui-panel-2); border: 1px solid var(--ui-line-2); color: var(--ui-dim); }
+.ui-badge.live { color: var(--ui-text); }
+.ui-badge.live::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+
+@keyframes ui-in { from { opacity: 0; transform: translateY(6px); } }
+.ui-in { animation: ui-in 0.45s var(--ui-ease) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

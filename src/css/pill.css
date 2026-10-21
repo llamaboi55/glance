@@ -1,5 +1,5 @@
 :root { color-scheme: dark; }
-html, body { margin: 0; background: transparent; overflow: hidden; font: 13px/1.1 system-ui, -apple-system, 'Segoe UI', Ubuntu, sans-serif; }
+html, body { margin: 0; background: transparent; overflow: hidden; font: 13px/1.1 Inter, 'Segoe UI Variable Text', 'Segoe UI', -apple-system, BlinkMacSystemFont, Ubuntu, sans-serif; -webkit-font-smoothing: antialiased; }
 video { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 .pill {
   all: unset; box-sizing: border-box; cursor: default;

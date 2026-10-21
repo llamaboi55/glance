@@ -1,6 +1,6 @@
 :root { color-scheme: dark; --accent: #5aa9ff; }
 [hidden] { display: none !important; }
-html, body { margin: 0; height: 100%; background: #0d0f14; color: #eef1f6; font: 16px/1.5 system-ui, -apple-system, 'Segoe UI', Ubuntu, sans-serif; cursor: default; user-select: none; }
+html, body { margin: 0; height: 100%; background: #0d0f14; color: #eef1f6; font: 16px/1.5 Inter, 'Segoe UI Variable Text', 'Segoe UI', -apple-system, BlinkMacSystemFont, Ubuntu, sans-serif; -webkit-font-smoothing: antialiased; cursor: default; user-select: none; }
 body { display: grid; place-items: center; background: radial-gradient(circle at 50% 45%, #182030 0, #0d0f14 60%); }
 main { text-align: center; max-width: 34rem; padding: 0 24px; }
 .step { margin: 0 0 28px; color: #8f98aa; letter-spacing: 0.08em; text-transform: uppercase; font-size: 13px; font-weight: 600; }
